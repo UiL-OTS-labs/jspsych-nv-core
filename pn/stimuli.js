@@ -3,10 +3,6 @@
 ///////////////
 
 // Item types
-const COGNATE_IDENTICAL = "COGNATE_IDENTICAL";
-const COGNATE_NON_IDENTICAL = "COGNATE_NON_IDENTICAL";
-const NON_COGNATE = "NON_COGNATE";
-const PSEUDOWORD = "PSEUDOWORD";
 const PRACTICE = "PRACTICE";
 const LISTS = ["list1"];
 
@@ -16,6 +12,8 @@ const CUE_EN1 = "pics/cues/EN1.png"
 const CUE_EN2 = "pics/cues/EN1.png"
 const CUE_NL1 = "pics/cues/EN1.png"
 const CUE_NL2 = "pics/cues/EN1.png"
+
+const CUES = [CUE_EN1, CUE_EN2, CUE_NL1, CUE_NL2];
 
 // const LISTS = [
 //     "list1",
@@ -134,12 +132,27 @@ function getPracticeItems() {
     return {list_name : "practice", table : PRACTICE_LIST};
 }
 
-function createStimulusBlocks() {
+function fixStimulusBlocks() {
 
-    fixBlock(BLOCK_1);
-    fixBlock(BLOCK_2);
-    fixBlock(BLOCK_3);
+    function imgName(name) {
+        return `pics/PICTURE_${name}.png`;
+    }
 
+    function fix(block) {
+        block.forEach(
+            (t) => {
+                // Fix image names based on string number
+                if (t.cue_pic_pic)
+                    t.cue_pic_pic = imgName(t.cue_pic_pic);
+                if (t.pic)
+                    t.pic = imgName(t.pic);
+            }
+        );
+    }
+
+    fix(BLOCK_1);
+    fix(BLOCK_2);
+    fix(BLOCK_3);
 }
 
 
@@ -152,22 +165,36 @@ function createStimulusBlocks() {
  */
 function getAudioStimuli() {
 
-    let audio_stimuli = [];
+    let audio_stimuli = ["sounds/beep.wav", "sounds/sound_test.mp3"];
 
-    let push_stimulus = function(trial) {
-        if (typeof trial.auditory_target === "string") {
-            audio_stimuli.push(trial.auditory_target);
-        }
-        if (typeof trial.auditory_prime === "string") {
-            audio_stimuli.push(trial.auditory_prime);
-        }
-    }
-    PRACTICE_LIST.forEach(push_stimulus);
-    TEST_ITEMS.forEach((test_item) => {
-        let trials = test_item.table;
-        trials.forEach(push_stimulus);
-    });
     return audio_stimuli;
+}
+
+/**
+ * Extracts all image stimuli from the trials.
+ *
+ * This function makes it somewhat easy to preload the images
+ *
+ * @return {string[]}
+ */
+function getImageStimuli() {
+
+    let image_stimuli = [];
+
+    function extract_img_stimuli(tparams) {
+        if (tparams.cue)
+            image_stimuli.push(tparams.cue);
+        if (tparams.cue_pic_cue)
+            image_stimuli.push(tparams.cue_pic_cue);
+        if (tparams.cue_pic_pic)
+            image_stimuli.push(tparams.cue_pic_pic);
+    }
+
+    BLOCK_1.forEach(extract_img_stimuli);
+    BLOCK_2.forEach(extract_img_stimuli);
+    BLOCK_3.forEach(extract_img_stimuli);
+
+    return Array.from(new Set(image_stimuli));
 }
 
 /**

@@ -85,7 +85,7 @@ let cue_pic = {
                 <img src="${cue}" alt="oops"/>
             </div>
             <div class="stimulus">
-                <img src="pics/PICTURE_${pic}.png" alt="oops"/>
+                <img src="${pic}" alt="oops"/>
             </div>`;
         return prompt;
     },
@@ -113,7 +113,7 @@ let solo_pic = {
         let pic = jsPsych.timelineVariable('pic');
         let prompt =
            `<div class="stimulus">
-                <img src="pics/PICTURE_${pic}.png" alt="oops"/>
+                <img src="${pic}" alt="oops"/>
             </div>`;
         return prompt;
     },
@@ -129,18 +129,16 @@ let if_solo_pic = {
     }
 };
 
-
-// leave preloading for later
-// let preload_audio = {
-//     type : jsPsychPreload,
-//     message : PRELOAD_MSG,
-//     images: [...getAudioStimuli(), AUDIO_TEST_STIMULUS]
-// };
-
-// let maybe_preload_images = {
-//     timeline : [preload_images],
-//     conditional_function : experimentUsesAudio
-// }
+let preload = {
+    type : jsPsychPreload,
+    message : PRELOAD_MSG,
+    on_start: function () {
+        console.log(preload.images);
+        console.log(preload.audio);
+    },
+    images: null, //[...getImageStimuli()], needs fixing first
+    audio: [...getAudioStimuli()],
+};
 
 let well_done_screen = {
     type: jsPsychHtmlButtonResponse,
@@ -202,7 +200,9 @@ let trial_procedure3 = {
 
 function initExperiment(block1, block2, block3) {
 
+    fixStimulusBlocks();
     validateAllStimuli();
+    preload.images = getImageStimuli();
 
     console.log ("block1 = ", block1);
     console.log ("block2 = ", block2);
@@ -225,7 +225,7 @@ function initExperiment(block1, block2, block3) {
     // it's best practice to have *mouse click* user I/O first
     timeline.push(start_screen);
 
-    // timeline.push(maybe_preload);
+    timeline.push(preload);
 
     // // Informed consent (consent.js)
     // timeline.push(consent_procedure);
