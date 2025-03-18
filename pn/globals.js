@@ -26,10 +26,10 @@ const GENDER_PREFER_NOT_SAY = "Prefer not to say";
 const MIN_WIDTH = 800;
 const MIN_HEIGHT = 600;
 
-const DEFAULT_ITI = 300; // 300 ms
+const ITI_DUR = 300; // 300 ms Inter Trial Interval
 const FIX_DUR = 500; // 500 ms
 const CUE_DUR = 500; // 500 ms
-const TRIAL_DUR = 3000; // 500 ms
+const TRIAL_DUR = 3000; 
 
 // Bail out string for mobiles
 const BAIL_OUT_MOBILE_TEXT = "Please run this experiment on a PC or Laptop.";

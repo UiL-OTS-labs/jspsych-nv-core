@@ -90,6 +90,7 @@ let cue_pic = {
         return prompt;
     },
     trial_duration: TRIAL_DUR,
+    post_trial_gap: ITI_DUR,
 };
 
 let if_cue_pic = {
@@ -117,6 +118,7 @@ let solo_pic = {
         return prompt;
     },
     trial_duration: TRIAL_DUR,
+    post_trial_gap: ITI_DUR,
 };
 
 let if_solo_pic = {
