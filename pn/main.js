@@ -9,7 +9,10 @@ let jsPsych = initJsPsych(
         exclusions: {
             min_width: MIN_WIDTH,
             min_height: MIN_HEIGHT
-        }
+        },
+        extensions : [
+            {type: PnSoundRecorderExtension, params: {}},
+        ],
     }
 );
 
@@ -227,6 +230,8 @@ function initExperiment(block1, block2, block3) {
 
     timeline.push(preload);
 
+    timeline.push({type:jsPsychInitializeMicrophone}); // make recording with mic work.
+
     // // Informed consent (consent.js)
     // timeline.push(consent_procedure);
 
@@ -239,8 +244,10 @@ function initExperiment(block1, block2, block3) {
     // task instruction (with button)
     // timeline.push(instruction_screen_practice);
 
-//    timeline.push(practice_procedure);
-//    timeline.push(well_done_screen);
+    // timeline.push(practice_procedure);
+    // timeline.push(well_done_screen);
+    
+    timeline.push ({type: PushRecorderStart}); 
 
     timeline.push(trial_procedure1);
     timeline.push(trial_procedure2);
