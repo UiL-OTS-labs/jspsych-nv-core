@@ -13,14 +13,14 @@ const AUDIO_CHECK_PROMPT_TEXT_LOOP = `
 // audio test procedure
 
 let test_audio_looped = {
-    post_trial_gap: DEFAULT_ITI,
+    post_trial_gap: ITI_DUR,
     timeline:
         [
             {
                 type: jsPsychAudioButtonResponse,
                 stimulus: AUDIO_TEST_STIMULUS,
                 choices: ['Play Again', 'Continue'],
-                prompt: function(){
+                prompt: function() {
                     return "<div class='instruction' >" +
                         '<p>' + AUDIO_CHECK_PROMPT_TEXT_LOOP + '</p></div>'
                 }
