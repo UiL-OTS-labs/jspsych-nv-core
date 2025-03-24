@@ -9,7 +9,10 @@ let jsPsych = initJsPsych(
         exclusions: {
             min_width: MIN_WIDTH,
             min_height: MIN_HEIGHT
-        }
+        },
+        extensions : [
+            {type: PnSoundRecorderExtension, params: {}},
+        ],
     }
 );
 
@@ -158,9 +161,12 @@ let well_done_screen = {
 
 let end_screen = {
     type: jsPsychHtmlButtonResponse,
-    // stimulus: DEBRIEF_MESSAGE,
+    stimulus: DEBRIEF_MESSAGE,
     choices: [],
     // trial_duration: DEBRIEF_MESSAGE_DURATION,
+    on_load: function (){
+        uil.saveData();
+    },
     on_finish : function(data) {
         if (typeof data.rt === "number") {
             data.rt = Math.round(data.rt);
@@ -227,6 +233,8 @@ function initExperiment(block1, block2, block3) {
 
     timeline.push(preload);
 
+    timeline.push({type:jsPsychInitializeMicrophone}); // make recording with mic work.
+
     // // Informed consent (consent.js)
     // timeline.push(consent_procedure);
 
@@ -239,12 +247,20 @@ function initExperiment(block1, block2, block3) {
     // task instruction (with button)
     // timeline.push(instruction_screen_practice);
 
-//    timeline.push(practice_procedure);
-//    timeline.push(well_done_screen);
-
+    // timeline.push(practice_procedure);
+    // timeline.push(well_done_screen);
+    
+    timeline.push ({type: SoundRecorderStart}); 
     timeline.push(trial_procedure1);
+    timeline.push ({type: SoundRecorderStop}); 
+
+    timeline.push ({type: SoundRecorderStart}); 
     timeline.push(trial_procedure2);
+    timeline.push ({type: SoundRecorderStop}); 
+
+    timeline.push ({type: SoundRecorderStart}); 
     timeline.push(trial_procedure3);
+    timeline.push ({type: SoundRecorderStop}); 
 
 //     timeline.push(feedback_screen);
     timeline.push(end_screen);
