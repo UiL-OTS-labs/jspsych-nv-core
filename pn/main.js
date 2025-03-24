@@ -161,9 +161,12 @@ let well_done_screen = {
 
 let end_screen = {
     type: jsPsychHtmlButtonResponse,
-    // stimulus: DEBRIEF_MESSAGE,
+    stimulus: DEBRIEF_MESSAGE,
     choices: [],
     // trial_duration: DEBRIEF_MESSAGE_DURATION,
+    on_load: function (){
+        uil.saveData();
+    },
     on_finish : function(data) {
         if (typeof data.rt === "number") {
             data.rt = Math.round(data.rt);
@@ -247,11 +250,17 @@ function initExperiment(block1, block2, block3) {
     // timeline.push(practice_procedure);
     // timeline.push(well_done_screen);
     
-    timeline.push ({type: PushRecorderStart}); 
-
+    timeline.push ({type: SoundRecorderStart}); 
     timeline.push(trial_procedure1);
+    timeline.push ({type: SoundRecorderStop}); 
+
+    timeline.push ({type: SoundRecorderStart}); 
     timeline.push(trial_procedure2);
+    timeline.push ({type: SoundRecorderStop}); 
+
+    timeline.push ({type: SoundRecorderStart}); 
     timeline.push(trial_procedure3);
+    timeline.push ({type: SoundRecorderStop}); 
 
 //     timeline.push(feedback_screen);
     timeline.push(end_screen);
