@@ -4,6 +4,7 @@ import csv
 import os
 import json
 import re
+from typing import Iterable
 
 PathHint = str | bytes | os.PathLike
 
@@ -56,32 +57,42 @@ def to_unquoted_key(mobj: re.Match) -> str:
     return mobj.group(1) + mobj.group(3)
 
 
+def rm_columns(items: Iterable[dict], keys: list[str]) -> None:
+    """removes the all the keys for each item in items"""
+    for item in items:
+        for key in keys:
+            try:
+                del item[key]
+            except KeyError:  # key is already deleted, that's fine
+                pass
+
+
 content = ""
-for fn in FILES:
+for n, fn in enumerate(FILES):
+    block = n + 1
     rows = read_file(fn)
-    nums = "12"
-    (block,) = [c for c in fn if c in nums]
     rows = sanitize_input(rows)
     prac_items = list(filter(lambda trial: trial["item_type"] == "practice", rows))
     test_items = list(filter(lambda trial: trial["item_type"] == "test", rows))
     restruct = restruct_test_items(test_items)
 
-    for trial in restruct:
-        del trial["part"]
+    rm_columns(restruct, ["part"])
+    rm_columns(prac_items, ["part"])
+    assert len(restruct) == 60
     assert len(restruct) == 60
 
-    ignore_keys = ["part"]
-
     prac_var = (
-        f"prac{block} = "
+        f"block1_prac{block} = "
         + json.dumps(prac_items, indent="\t", sort_keys=True)
         + ";\n\n"
     )
     test_var = (
-        f"test{block} = " + json.dumps(restruct, indent="\t", sort_keys=True) + ";\n\n"
+        f"block1_test{block} = "
+        + json.dumps(restruct, indent="\t", sort_keys=True)
+        + ";\n\n"
     )
 
     content += prac_var + test_var
     re.sub(LEADING_VAR, to_unquoted_key, content)
 
-    print(content)
+print(content)
