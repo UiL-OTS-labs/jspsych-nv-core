@@ -31,6 +31,8 @@ let start_screen = {
     }
 };
 
+// optional instructions to be presented in the first block
+
 let instruction = {
     type: jsPsychHtmlButtonResponse,
     stimulus: jsPsych.timelineVariable("instruction"),
@@ -50,6 +52,8 @@ let if_instruction = {
         return instruction ? true : false;
     }
 }
+
+// fixation cross
 
 let fix = {
     type: jsPsychHtmlKeyboardResponse,

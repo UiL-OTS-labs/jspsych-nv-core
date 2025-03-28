@@ -72,3 +72,22 @@ const FEEDBACK_PREAMBLE = `
 const FEEDBACK_PROMPT = `
      Is there anything you would like to say about the experiment? If not, leave this field blank.
     `;
+
+const BLOCK1_INSTRUCTION =
+    "End of the practice part.<br>"
+    "<br>"
+    "Block 1 will start next. First you will have to name each "
+    "object in one language and then in the other language. "
+    "This procedure will be repeated twice. "
+    "There is a pause in between languages.<br> "
+    "<br>"
+    "<i>Hit Enter when ready to proceed.</i>";
+
+const INSTRUCTION_QUATER1=
+   "Now switch to the other language as indicated by the flag";
+
+const INSTRUCTION_QUATER2=
+   "Now switch to the other language as indicated by the flag";
+
+ const INSTRUCTION_QUATER3=
+   "Now switch to the other language as indicated by the flag";

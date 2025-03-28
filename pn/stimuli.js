@@ -17,7 +17,12 @@ let BLOCK_2 = undefined;
 let BLOCK_3 = undefined
 
 
-function fixStimulusBlocks() {
+/**
+ * Fixes the stimulus names inside of the blocks.
+ * The stimulus names in the table do not yet have
+ * an appropriate path, this function fixes that.
+ */
+function _fixImageNames() {
 
     /**
      * Get the name of a stimulus
@@ -64,6 +69,21 @@ function fixStimulusBlocks() {
     fix(BLOCK_3);
 }
 
+function _setInstructionsBlock() {
+    // Don't put any other instructions here, because they
+    // will be recored.
+    BLOCK_1[BLOCK_1.length / 4 * 1].instruction = INSTRUCTION_QUATER1;
+    BLOCK_1[BLOCK_1.length / 4 * 2].instruction = INSTRUCTION_QUATER2;
+    BLOCK_1[BLOCK_1.length / 4 * 3].instruction = INSTRUCTION_QUATER3;
+}
+
+function fixStimulusBlocks() {
+
+    _fixImageNames();
+    _setInstructionsBlock1();
+
+}
+
 /**
  * Setup the blocks for use:
  *
@@ -78,7 +98,6 @@ function setupStimulusBlocks(first="dutch") {
     first = first.trim() 
     first = first.toLocaleLowerCase()
 
-
     first = first.toLowerCase();
 
     if (first === "english") {
@@ -90,8 +109,8 @@ function setupStimulusBlocks(first="dutch") {
         PRACTICE = block1_prac1;
     }
 
-    BLOCK_2 = block2_test; // see block.js
-    BLOCK_3 = block3_test; // see block.js
+    BLOCK_2 = block2_test; // see block2.js
+    BLOCK_3 = block3_test; // see block3.js
 }
 
 
