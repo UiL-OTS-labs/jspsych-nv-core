@@ -1,36 +1,11 @@
 #!/usr/bin/env python
 
-import csv
-import os
-import json
-import re
-from typing import Iterable
+import utils
+import typing
+import sys
 
-PathHint = str | bytes | os.PathLike
 
 FILES = ["exp_cond_blocked_list1.csv", "exp_cond_blocked_list2.csv"]
-
-
-def print_test_items(items: list[dict]):
-    for i in items:
-        print(i)
-
-
-def read_file(fn: PathHint):
-    """Reads csv file and extract relevant lines"""
-    with open(fn) as input:
-        reader = csv.DictReader(input, delimiter=",")
-        return list(reader)
-
-
-def sanitize_input(rows: list[dict]) -> list[dict]:
-    """Returns a new list columns from data that are not in the desired
-    columns, also use lowercase keys
-    """
-    desired = ["item_type", "picture", "cue", "trial_type", "Part", "block"]
-
-    ret = [{k.lower(): row[k] for k in desired} for row in rows]
-    return ret
 
 
 def restruct_test_items(trials: list[dict]) -> list[dict]:
@@ -48,51 +23,49 @@ def restruct_test_items(trials: list[dict]) -> list[dict]:
     return restruct
 
 
-#                            1   2      3         4
-LEADING_VAR = re.compile('^(\t+)(")([a-zA-Z0-9]+)(")')
+def generate_bl1(output: typing.TextIO):
+    """Generates the output on the basis of the FILES"""
+    content = ""
+    desired_keys = ["item_type", "picture", "cue", "trial_type", "Part", "block"]
+
+    for n, fn in enumerate(FILES):
+        block = n + 1
+        rows = utils.read_file(fn)
+        rows = utils.sanitize_input(rows, desired_keys)
+        prac_items = list(filter(lambda trial: trial["item_type"] == "practice", rows))
+        test_items = list(filter(lambda trial: trial["item_type"] == "test", rows))
+        restruct = restruct_test_items(test_items)
+
+        utils.rm_columns(restruct, ["part"])
+        utils.rm_columns(prac_items, ["part"])
+        assert len(restruct) == 60
+        assert len(restruct) == 60
+
+        prac_var = (
+            f"block1_prac{block} = "
+            + utils.triallist_to_jsobjectlist(prac_items)
+            + ";\n\n"
+        )
+        test_var = (
+            f"block1_test{block} = "
+            + utils.triallist_to_jsobjectlist(restruct)
+            + ";\n\n"
+        )
+
+        content += prac_var + test_var
+
+    print(content, file=output)
 
 
-def to_unquoted_key(mobj: re.Match) -> str:
-    "Removes quotes from LEADING_VAR"
-    return mobj.group(1) + mobj.group(3)
+def main():
+    args = utils.default_cmd_parser().parse_args()
+
+    if args.output:
+        with open(args.output, "w") as outfile:
+            generate_bl1(outfile)
+    else:
+        generate_bl1(sys.stdout)
 
 
-def rm_columns(items: Iterable[dict], keys: list[str]) -> None:
-    """removes the all the keys for each item in items"""
-    for item in items:
-        for key in keys:
-            try:
-                del item[key]
-            except KeyError:  # key is already deleted, that's fine
-                pass
-
-
-content = ""
-for n, fn in enumerate(FILES):
-    block = n + 1
-    rows = read_file(fn)
-    rows = sanitize_input(rows)
-    prac_items = list(filter(lambda trial: trial["item_type"] == "practice", rows))
-    test_items = list(filter(lambda trial: trial["item_type"] == "test", rows))
-    restruct = restruct_test_items(test_items)
-
-    rm_columns(restruct, ["part"])
-    rm_columns(prac_items, ["part"])
-    assert len(restruct) == 60
-    assert len(restruct) == 60
-
-    prac_var = (
-        f"block1_prac{block} = "
-        + json.dumps(prac_items, indent="\t", sort_keys=True)
-        + ";\n\n"
-    )
-    test_var = (
-        f"block1_test{block} = "
-        + json.dumps(restruct, indent="\t", sort_keys=True)
-        + ";\n\n"
-    )
-
-    content += prac_var + test_var
-    re.sub(LEADING_VAR, to_unquoted_key, content)
-
-print(content)
+if __name__ == "__main__":
+    main()

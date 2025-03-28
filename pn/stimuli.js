@@ -2,157 +2,96 @@
 // STIMULI
 ///////////////
 
-// Item types
-const PRACTICE = "PRACTICE";
-const LISTS = ["list1"];
-
-// In case of more complex design, the above could be, for example:
 
 const CUE_EN1 = "pics/cues/EN1.png"
-const CUE_EN2 = "pics/cues/EN1.png"
-const CUE_NL1 = "pics/cues/EN1.png"
-const CUE_NL2 = "pics/cues/EN1.png"
+const CUE_EN2 = "pics/cues/EN2.png"
+const CUE_NL1 = "pics/cues/NL1.png"
+const CUE_NL2 = "pics/cues/NL2.png"
 
+// for preloading
 const CUES = [CUE_EN1, CUE_EN2, CUE_NL1, CUE_NL2];
 
-// const LISTS = [
-//     "list1",
-//     "list2"
-// ];
+let PRACTICE = undefined;
+let BLOCK_1 = undefined;
+let BLOCK_2 = undefined;
+let BLOCK_3 = undefined
 
-const PRACTICE_LIST = [
-	
-];
-
-let BLOCK_1 = [
-    {
-        cue: CUE_EN2,           // flag to cue desired response language
-        cue_pic_cue : CUE_EN1,  // picture and cue stimulus.
-        cue_pic_pic : "117",    // picture num in string format.
-    },
-];
-
-let BLOCK_2 = [
-    {
-        pic: "351",
-    },
-];
-
-let BLOCK_3 = [
-    {
-        cue: CUE_EN2,           // flag to cue desired response language
-        cue_pic_cue : CUE_EN1,  // picture and cue stimulus.
-        cue_pic_pic : "117",    // picture num in string format.
-    }
-]
-
-
-// Add a second list of stimuli when required.
-// const LIST_2 = [
-// ...
-// ]
-
-const TEST_ITEMS = [
-//    {list_name: LISTS[0], table: LIST_1}
-];
-
-class ParameterValidationKeyError extends Error {
-    constructor(trial) {
-        const set1 = ['pic'];
-        const set2 = ['cue', 'cue_pic_pic', 'cue_pic_cue'];
-        let message = `Trial params should contain ${set1} or ${set2} parameters. `
-        message += `Keys given were ${trial}`;
-        super(message);
-        this.name = 'ParameterValidationKeyError';
-    }
-};
-
-
-function validateStimuli(list) {
-    let ret = true;
-
-    function arrayEqual(a1, a2) {
-        console.assert(Array.isArray(a1) && Array.isArray(a2))
-        if (a1.length !== a2.length)
-            return false;
-        for (let i = 0; i < a1.length; i++) {
-            if (a1[i] !== a2[i])
-                return false
-        }
-        return true;
-    }
-
-    list.forEach(
-        function(trial) {
-            set1 = ['pic']
-            set2 = ['cue', 'cue_pic_cue', 'cue_pic_pic'];
-
-            if (arrayEqual(Object.keys(trial).sort(), set1)) {
-                ;
-            }
-            else if (arrayEqual(Object.keys(trial).sort(), set2)) {
-                ;
-            }
-            else {
-                throw new ParameterValidationKeyError(Object.keys(trial).sort())
-            }
-        }
-    );
-
-    return true;
-}
-
-function validateAllStimuli() {
-    if (!validateStimuli(BLOCK_1)) {
-        console.error("Unable to validate stimuli of block 1");
-        return false;
-    }
-    
-    if (!validateStimuli(BLOCK_2)){
-        console.error("Unable to validate stimuli of block 2");
-        return false;
-    }
-
-    if (!validateStimuli(BLOCK_3)) {
-        console.error("Unable to validate stimuli of block 3");
-        return false;
-    }
-
-    return true;
-}
-
-// If there were two lists to choose from:
-
-// const TEST_ITEMS = [
-//     {list_name: LISTS[0], table: LIST_1},
-//     {list_name: LISTS[1], table: LIST_2}
-// ];
-
-function getPracticeItems() {
-    return {list_name : "practice", table : PRACTICE_LIST};
-}
 
 function fixStimulusBlocks() {
 
+    /**
+     * Get the name of a stimulus
+     * @param {string} name 
+     * @returns {string} the resulting image name
+     */
     function imgName(name) {
-        return `pics/PICTURE_${name}.png`;
+        return `pics/${name}.png`;
+    }
+
+    /**
+     * Given cue "EN" or "NL"
+     * 
+     * Generate a name for the cue that is presented alone
+     * 
+     * @param {string} cue  must be EN or NL
+     * @param {number} n 1 or 2
+     * @returns {string} the resulting cue image name
+     */
+    function cueName(cue, n) {
+        let valid = ["EN", "NL"]
+        if (valid.indexOf(cue) < 0)
+            throw Error(`Oops cue "${cue}" not in ${valid}`)
+        return `pics/cues/${cue}${n}.png`
     }
 
     function fix(block) {
         block.forEach(
             (t) => {
-                // Fix image names based on string number
-                if (t.cue_pic_pic)
-                    t.cue_pic_pic = imgName(t.cue_pic_pic);
-                if (t.pic)
-                    t.pic = imgName(t.pic);
+                if (t.cue == "-")
+                    t.cue = "";
+                if (t.cue) {
+                    t.cue_pic_cue = cueName(t.cue, 1);
+                    t.cue_pic= cueName(t.cue, 2);
+                }
+                t.cue_pic_pic = imgName(t.picture);
             }
         );
     }
 
+    fix(PRACTICE);
     fix(BLOCK_1);
     fix(BLOCK_2);
     fix(BLOCK_3);
+}
+
+/**
+ * Setup the blocks for use:
+ *
+ * @param {string} [first="dutch"] first should be "english" or "dutch"
+ */
+function setupStimulusBlocks(first="dutch") {
+
+    /* sanitize input */
+    if (!first) { // If you specify something falsish, you'll get dutch
+        first = "dutch";
+    }
+    first = first.trim() 
+    first = first.toLocaleLowerCase()
+
+
+    first = first.toLowerCase();
+
+    if (first === "english") {
+        BLOCK_1 = block1_test2; // see block1.js
+        PRACTICE = block1_prac2;
+    }
+    else {
+        BLOCK_1 = block1_test1; // see block1.js
+        PRACTICE = block1_prac1;
+    }
+
+    BLOCK_2 = block2_test; // see block.js
+    BLOCK_3 = block3_test; // see block.js
 }
 
 
@@ -182,8 +121,8 @@ function getImageStimuli() {
     let image_stimuli = [];
 
     function extract_img_stimuli(tparams) {
-        if (tparams.cue)
-            image_stimuli.push(tparams.cue);
+        if (tparams.cue_pic)
+            image_stimuli.push(tparams.cue_pic);
         if (tparams.cue_pic_cue)
             image_stimuli.push(tparams.cue_pic_cue);
         if (tparams.cue_pic_pic)

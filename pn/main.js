@@ -31,6 +31,26 @@ let start_screen = {
     }
 };
 
+let instruction = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: jsPsych.timelineVariable("instruction"),
+    response_ends_trial: true,
+    choices: [OK_BUTTON_TEXT],
+    on_finish : function(data) {
+        if (typeof data.rt === "number") {
+            data.rt = Math.round(data.rt);
+        }
+    }
+}
+
+let if_instruction = {
+    timeline: [instruction],
+    conditional_function: function() {
+        let instruction = jsPsych.timelineVariable("instruction");
+        return instruction ? true : false;
+    }
+}
+
 let fix = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () {
@@ -52,7 +72,7 @@ let fix = {
 let cue = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function() {
-        let pic_name = jsPsych.timelineVariable('cue');
+        let pic_name = jsPsych.timelineVariable('cue_pic');
         let alt = `Unable to load ${pic_name}`;
         return `<img src="${pic_name}" alt="${alt} class="stimulus" />`;
     },
@@ -63,7 +83,7 @@ let cue = {
 let if_cue = {
     timeline: [cue],
     conditional_function: function () {
-        let c = jsPsych.timelineVariable('cue', true);
+        let c = jsPsych.timelineVariable('cue_pic', true);
         console.log("c = " + c);
         if (typeof c ==="string" && c.length > 0) {
             cue.cue = c;
@@ -159,6 +179,17 @@ let well_done_screen = {
     }
 };
 
+let trial_timeline = [
+    if_instruction,
+    fix,
+    if_cue,
+    if_solo_pic,
+    if_cue_pic,
+];
+
+/*
+ * Uploads the data and displays a message
+ */
 let end_screen = {
     type: jsPsychHtmlButtonResponse,
     stimulus: DEBRIEF_MESSAGE,
@@ -174,12 +205,6 @@ let end_screen = {
     },
 };
 
-let trial_timeline = [
-    fix,
-    if_cue,
-    if_solo_pic,
-    if_cue_pic,
-];
 
 // (timeline) procedures //////////////////////////////////////////////////////////
 
@@ -207,12 +232,7 @@ let trial_procedure3 = {
 function initExperiment(block1, block2, block3) {
 
     fixStimulusBlocks();
-    validateAllStimuli();
     preload.images = getImageStimuli();
-
-    console.log ("block1 = ", block1);
-    console.log ("block2 = ", block2);
-    console.log ("block3 = ", block3);
 
     trial_procedure1.timeline_variables = block1;
     trial_procedure2.timeline_variables = block2;
@@ -278,6 +298,7 @@ function main() {
 
     // Option 1: client side balancing:
     // let stimuli = pickRandomList();
+    setupStimulusBlocks();
     initExperiment(BLOCK_1, BLOCK_2, BLOCK_3);
 
      // Option 2: server side balancing:
