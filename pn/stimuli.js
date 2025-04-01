@@ -100,13 +100,6 @@ function violates_constraints(block, n) {
     return -1;
 }
 
-function log_stimuli(block) {
-    let stims = [];
-    block.forEach(item => stims.push(item.picture.slice("picture_".length)));
-    //block.forEach(item => stims.push(item));
-    console.log(stims);
-}
-
 /**
  * shuffles the 4 quarters of the block until the constraints are met
  */
@@ -160,9 +153,6 @@ function _shuffleBlock1() {
         }
         n++;
     } while (violates_constraints(BLOCK_1, n_non_adjacent) >= 0);
-
-    console.log("ntries = ", n);
-    log_stimuli(BLOCK_1);
 }
 
 function _shuffleBlock2  () {
@@ -176,7 +166,6 @@ function _shuffleBlock2  () {
             let r = Math.floor(Math.random() * BLOCK_2.length)
             
             if (violate < 0) { // no violations/ were done:)
-                console.log("i = " + i)
                 break;
             }
 
@@ -184,7 +173,6 @@ function _shuffleBlock2  () {
         }
         nth_try++;
     } while (violates_constraints(BLOCK_2, n_non_adjacent) >= 0);
-    console.log("ntries = ", nth_try);
 }
 
 /**

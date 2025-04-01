@@ -1,5 +1,5 @@
 
-block3_test1 = [
+let block3_test1 = [
 	{
 		"block": "3",
 		"cue": "EN",
@@ -422,7 +422,7 @@ block3_test1 = [
 	}
 ]
 
-block3_test2 = [
+let block3_test2 = [
 	{
 		"block": "3",
 		"cue": "EN",
