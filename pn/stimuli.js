@@ -1,4 +1,6 @@
-////////////////
+"use strict";
+
+///////////////
 // STIMULI
 ///////////////
 
@@ -69,7 +71,7 @@ function _fixImageNames() {
     fix(BLOCK_3);
 }
 
-function _setInstructionsBlock() {
+function _setInstructionsBlock1() {
     // Don't put any other instructions here, because they
     // will be recored.
     BLOCK_1[BLOCK_1.length / 4 * 1].instruction = INSTRUCTION_QUATER1;
@@ -77,11 +79,226 @@ function _setInstructionsBlock() {
     BLOCK_1[BLOCK_1.length / 4 * 3].instruction = INSTRUCTION_QUATER3;
 }
 
+/**
+ * Checks whether stimuli are not repeated within n trials
+ * @param {Object[]} block 
+ * @param {number} n
+ * 
+ * @returns {number} the index of the violating item or -1 when
+ *                   no violating items are found
+ */
+function violates_constraints(block, n) {
+
+    for (let i = n; i < block.length; i++) {
+        let stim = block[i].picture;
+        let problem = block.slice(i - n, i).find((key) => key.picture == stim);
+        if (problem) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+function log_stimuli(block) {
+    let stims = [];
+    block.forEach(item => stims.push(item.picture.slice("picture_".length)));
+    //block.forEach(item => stims.push(item));
+    console.log(stims);
+}
+
+/**
+ * shuffles the 4 quarters of the block until the constraints are met
+ */
+function _shuffleBlock1() {
+    let quarter_len = BLOCK_1.length/4;
+    let bl1_q2_start = Math.floor(quarter_len) * 1;
+    let bl1_q3_start = Math.floor(quarter_len) * 2;
+    let bl1_q4_start = Math.floor(quarter_len) * 3;
+
+    let n = 0;
+    let num_tries = 100;
+    let n_non_adjacent = 10;
+
+    do {
+        shuffleRange(BLOCK_1, 0, bl1_q2_start);
+        shuffleRange(BLOCK_1, bl1_q2_start, bl1_q3_start);
+        shuffleRange(BLOCK_1, bl1_q3_start, bl1_q4_start);
+        shuffleRange(BLOCK_1, bl1_q4_start, BLOCK_1.length);
+        for (let i = 0; i < num_tries; i++) {
+            let violate = violates_constraints(BLOCK_1, n_non_adjacent)
+            let r = Math.floor(Math.random() * quarter_len)
+            
+            if (violate < 0) { // no violations/ were done:)
+                break;
+            }
+
+            if (violate < quarter_len) {// violation in the first block
+                r = r + quarter_len * 0;
+                console.assert(r >= 0 && r < 15);
+                console.assert(violate >= 0 && violate < 15);
+                swap(BLOCK_1, violate, r);
+            }
+            else if (violate < quarter_len * 2) { // second
+                r = r + quarter_len * 1;
+                console.assert(r >= 15 && r < 30);
+                console.assert(violate >= 15 && violate < 30);
+                swap(BLOCK_1, violate, r);
+            }
+            else if (violate < quarter_len * 3) { // third
+                r = r + quarter_len * 2;
+                console.assert(r >= 30 && r < 45);
+                console.assert(violate >= 30 && violate < 45);
+                swap(BLOCK_1, violate, r);
+            }
+            else { //fourth
+                r = r + quarter_len * 3;
+                console.assert(r >= 45 && r < 60);
+                console.assert(violate >= 45 && violate < 60);
+                swap(BLOCK_1, violate, r);
+            }
+        }
+        n++;
+    } while (violates_constraints(BLOCK_1, n_non_adjacent) >= 0);
+
+    console.log("ntries = ", n);
+    log_stimuli(BLOCK_1);
+}
+
+function _shuffleBlock2  () {
+    let nth_try = 0;
+    let n_non_adjacent = 10;
+    let num_tries = 100;
+    do {
+        shuffleRange(BLOCK_2, 0, BLOCK_2.length);
+        for (let i = 0; i < num_tries; i++) {
+            let violate = violates_constraints(BLOCK_2, n_non_adjacent)
+            let r = Math.floor(Math.random() * BLOCK_2.length)
+            
+            if (violate < 0) { // no violations/ were done:)
+                console.log("i = " + i)
+                break;
+            }
+
+            swap(BLOCK_2, violate, r);
+        }
+        nth_try++;
+    } while (violates_constraints(BLOCK_2, n_non_adjacent) >= 0);
+    console.log("ntries = ", nth_try);
+}
+
+/**
+ * construct_list3
+ * 
+ * Constructs a slice of the input block that is reordered.
+ * 
+ * The reordering is in such a way that the pattern below
+ * is repeated. It could be the case that
+ * 
+ * cue              | EN EN NL NL EN EN NL NL ....
+ * Same(S) Switch(O)| O  S  O  S  O  S  O  S  ....
+ * 
+ * 
+ * @param {Object[]} block the block 
+ * 
+ * @returns {Object[]} slice of block
+ */
+function construct_list3(block) {
+
+    let shallow = block.slice();
+    let slice = []; // result
+    let en_switch = []
+    let en_same = []
+    let nl_switch = []
+    let nl_same = []
+
+    shuffleRange(shallow, 0, shallow.length);
+
+    let last = shallow.pop(); // start with a random item
+    slice.push(last);
+
+    // Put the other items in their appropriate bin
+    do {
+        let item = shallow.pop()
+        if (item.cue == "EN" && item.trial_type == "switch")
+            en_switch.push(item);
+        else if (item.cue == "EN" && item.trial_type == "same")
+            en_same.push(item);
+        else if (item.cue == "NL" && item.trial_type == "switch")
+            nl_switch.push(item);
+        else if (item.cue == "NL" && item.trial_type == "same")
+            nl_same.push(item);
+        else
+            console.assert(0 == 1); // shouldn't be reached.
+    } while(shallow.length);
+
+    // We've popped one random item and pushed that to the result
+    console.assert(
+        Math.abs(en_same.length - en_switch.length) <= 1 &&
+        Math.abs(en_same.length - nl_switch.length) <= 1 &&
+        Math.abs(en_same.length - nl_same.length) <= 1 &&
+        Math.abs(en_same.length - block.length/4) <= 1
+    );
+
+    // pop an appropriate item and push it to the result
+    /*
+     * cue              | EN EN NL NL EN EN NL NL ....
+     * Same(S) Switch(O)| O  S  O  S  O  S  O  S  ....
+     */
+    while (slice.length < block.length) {
+        if (last.cue == "EN" && last.trial_type == "switch")
+            last = en_same.pop();
+        else if (last.cue == "EN" && last.trial_type == "same")
+            last = nl_switch.pop();
+        else if (last.cue == "NL" && last.trial_type == "switch")
+            last = nl_same.pop();
+        else if (last.cue == "NL" && last.trial_type == "same")
+            last = en_switch.pop();
+        else
+            // Houston, we've got...
+            console.assert(0 == 1);
+        slice.push(last);
+    }
+
+    return slice;
+}
+
+function _shuffleBlock3() {
+
+    let num_tries = 100;
+    let block;
+    let num_adjacent = 10;
+    let i;
+    const NUM_BLOCKS = 4;
+    let violation;
+    let nth_try = 0;
+
+    do {
+        block = construct_list3(BLOCK_3);
+        nth_try++;
+
+        for (i = 0; i < num_tries; i++) {
+
+            violation = violates_constraints(block, num_adjacent);
+            if (violation < 0)
+                break;
+
+            let remainder = violation % NUM_BLOCKS;
+            let swap_item = Math.floor(Math.random() * block.length/NUM_BLOCKS) * NUM_BLOCKS + remainder;
+
+            swap(block, swap_item, violation);
+        }
+    } while(violation >= 0)
+
+    return block;
+}
+
 function fixStimulusBlocks() {
-
     _fixImageNames();
+    _shuffleBlock1();
+    _shuffleBlock2();
+    _shuffleBlock3();
     _setInstructionsBlock1();
-
 }
 
 /**
@@ -102,15 +319,16 @@ function setupStimulusBlocks(first="dutch") {
 
     if (first === "english") {
         BLOCK_1 = block1_test2; // see block1.js
-        PRACTICE = block1_prac2;
+        PRACTICE = block1_prac2; // block1.js
+        BLOCK_3 = block3_test2; // see block3.js
     }
     else {
         BLOCK_1 = block1_test1; // see block1.js
-        PRACTICE = block1_prac1;
+        PRACTICE = block1_prac1;// block2.js
+        BLOCK_3 = block3_test1; // see block3.js
     }
 
     BLOCK_2 = block2_test; // see block2.js
-    BLOCK_3 = block3_test; // see block3.js
 }
 
 
