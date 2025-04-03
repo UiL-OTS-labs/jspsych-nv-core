@@ -251,9 +251,6 @@ function initExperiment(stimuli) {
 
     timeline.push(maybe_preload_audio);
 
-    // Informed consent (consent.js)
-    timeline.push(consent_procedure);
-
     // survey (survey.js)
     timeline.push(survey_procedure);
 

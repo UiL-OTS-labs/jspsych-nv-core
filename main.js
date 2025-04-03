@@ -74,6 +74,8 @@ function initExperiment(group) {
     // it's best practice to have *mouse click* user I/O first
     timeline.push(start_screen);
 
+    timeline.push(consent_procedure);
+
     timeline.push(end_screen);
 
     // Start jsPsych when running on a Desktop or Laptop style pc.
