@@ -251,9 +251,6 @@ function initExperiment(stimuli) {
 
     timeline.push(maybe_preload_audio);
 
-    // survey (survey.js)
-    timeline.push(survey_procedure);
-
     // kb layout
     timeline.push(select_keyboard_layout);
 

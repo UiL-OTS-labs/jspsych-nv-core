@@ -75,6 +75,9 @@ function initExperiment(group) {
     timeline.push(start_screen);
 
     timeline.push(consent_procedure);
+    
+    // survey (survey.js)
+    timeline.push(survey_procedure);
 
     timeline.push(end_screen);
 
