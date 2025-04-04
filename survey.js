@@ -35,7 +35,7 @@ let survey_1 = {
     fields: {
         birth_year: {label: 'Year of birth'},
         birth_month: {label: 'Month of birth'},
-        native_language: {label: 'Native language', options: {ja: "Yes", nee: "No"}},
+        native_language: {label: 'Native language', options: {yes: "Yes", no: "No"}},
     },
 	ok: "Correct",
 	reviewPrompt: "Please check that the following information is correct:",
