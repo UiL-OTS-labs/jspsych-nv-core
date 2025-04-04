@@ -228,10 +228,10 @@ function initExperiment(stimuli) {
     validateAllStimuli();
 
     console.log("The selected list is %s", stimuli.list_name);
-    trial_procedure.timeline_variables = uil.randomization.randomizeStimuli(
+    trial_procedure.timeline_variables = uil.randomization.randomShuffleConstraints(
         stimuli.table,
-        MAX_SUCCEEDING_ITEMS_OF_TYPE,
-        'item_type'
+        {'item_type': MAX_SUCCEEDING_ITEMS_OF_TYPE},
+        100
     );
 
     // Data added to the output of all trials.
