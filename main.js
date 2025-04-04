@@ -46,26 +46,34 @@ let end_screen = {
 
         uil.saveData();
 
-        if (redirection_info.second == "pn")
-            self.window.location.replace("./pn?" + redirection_info.search_params);
-        else
-            self.window.location.replace("./ld?" + redirection_info.search_params);
+        let relpath = "./" + redirection_info.second
+        let url = new URL(relpath, window.location.href);
+        for (const [key, value] of redirection_info.search_params.entries()) {
+            url.searchParams.set(key, value)
+        }
+
+        window.location.replace(url);
     },
 };
 
 function initExperiment(group) {
     redirection_info.second = group;
+    console.log("second = ", group);
 
     // Data added to the output of all trials.
     jsPsych.data.addProperties({
-        pp_id: redirection_info.pp_id
+        pp_id: redirection_info.pp_id,
     });
 
-    let search_params = new URLSearchParams({
-        pp_id: redirection_info.pp_id,
-        second: redirection_info.second
-    });
-    redirection_info.search_params = search_params
+    redirection_info.search_params = new URLSearchParams(
+        {
+            second: group,
+            pp_id:redirection_info.pp_id
+        }
+    );
+    if ((new URL(location.href)).searchParams.has("short")) {
+        redirection_info.search_params.set("short", true);
+    }
 
     //////////////// timeline /////////////////////////////////
 
@@ -90,8 +98,9 @@ function initExperiment(group) {
 function main() {
     
     let current_url = new URL(window.location.href);
-    let params = current_url.searchParams;
-    let query_obj = Object.fromEntries(params.entries());
+    // Capture global params
+    let search_params = current_url.searchParams;
+    let query_obj = Object.fromEntries(search_params.entries());
 
     redirection_info.pp_id = query_obj.pp_id;
     redirection_info.pn_experiment = new URL("pn", current_url);

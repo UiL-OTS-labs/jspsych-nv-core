@@ -144,12 +144,15 @@ let survey_2 = {
     `,
     on_finish : function(data) {
         let response = data.response;
-	if (data['handedness'] == 'left') {
-	    participant_info.hand_pref = ParticipantInfo.LEFT;
-	}
-	else {
-	    participant_info.hand_pref = ParticipantInfo.RIGHT;
-	}
+        if (data['handedness'] == 'left') {
+            participant_info.hand_pref = ParticipantInfo.LEFT;
+            redirection_info.search_params.append("hand", "left");
+
+        }
+        else {
+            participant_info.hand_pref = ParticipantInfo.RIGHT;
+            redirection_info.search_params.append("hand", "right");
+        }
     }
 }
 
