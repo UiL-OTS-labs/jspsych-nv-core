@@ -287,6 +287,33 @@ function fixStimulusBlocks() {
     _shuffleBlock2();
     _shuffleBlock3();
     _setInstructionsBlock1();
+    
+    let url = new URL(window.location.href);
+    let params = new URLSearchParams(url.searchParams);
+    if (params.get("short") == "true") { // for testing purposes
+
+        let shortbl1 = [
+            BLOCK_1[0],
+            BLOCK_1[15],
+            BLOCK_1[30],
+            BLOCK_1[45],
+        ]
+        BLOCK_1 = shortbl1;
+
+        let shortbl2 = [
+            BLOCK_2[0],
+            BLOCK_2[1],
+        ];
+        BLOCK_2 = shortbl2;
+
+        let shortbl3 = [
+            BLOCK_3[0],
+            BLOCK_3[1],
+            BLOCK_3[2],
+            BLOCK_3[3],
+        ];
+        BLOCK_3 = shortbl3;
+    }
 }
 
 /**
