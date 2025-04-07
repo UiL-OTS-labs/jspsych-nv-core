@@ -262,7 +262,7 @@ function initExperiment() {
         redirection_params.do_ld = true;
     }
     else {
-        redirection_params.do_ld = true;
+        redirection_params.do_ld = false;
     }
     
     // Data added to the output of all trials.
