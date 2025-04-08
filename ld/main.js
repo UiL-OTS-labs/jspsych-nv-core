@@ -4,6 +4,12 @@
  * decision are in the file ld_trials.js.
  */
 
+let redirection_params = {
+    current_url: null,
+    search_params: null,
+    do_pn: null
+};
+
 let jsPsych = initJsPsych(
     {
         exclusions: {
@@ -99,10 +105,17 @@ let feedback_screen = {
     type: jsPsychSurveyText,
     preamble: FEEDBACK_PREAMBLE,
     questions: [
-	{prompt: FEEDBACK_PROMPT, rows: 5},
+        {prompt: FEEDBACK_PROMPT, rows: 5},
     ],
     on_load: function() {
         uil.saveJson(jsPsych.data.get().json(), ACCESS_KEY);
+        if (redirection_params.do_pn) {
+            let new_url = new URL("../pn", redirection_params.current_url)
+            for ([key, value] of redirection_params.search_params) {
+                new_url.searchParams.set(key, value);
+            }
+            window.location.replace(new_url);
+        }
     },
     on_finish: function(data) {
         let payload = {
@@ -205,10 +218,13 @@ let trial_procedure = {
  */
 function getWordKey()
 {
-    if (participant_info.hand_pref === ParticipantInfo.RIGHT)
-        return KEYBOARD_DEFAULTS[chosen_keyboard].right_key;
-    else
+    let url = new URL(window.location.href);
+    let params = url.searchParams;
+    // most people are right handed, so when we don't know choose that one
+    if (params.get("hand") === "left")
         return KEYBOARD_DEFAULTS[chosen_keyboard].left_key;
+    else
+        return KEYBOARD_DEFAULTS[chosen_keyboard].right_key;
 }
 
 /**
@@ -217,15 +233,33 @@ function getWordKey()
  */
 function getNonWordKey()
 {
-    if (participant_info.hand_pref === ParticipantInfo.RIGHT)
-        return KEYBOARD_DEFAULTS[chosen_keyboard].left_key;
-    else
+    let url = new URL(window.location.href);
+    let params = url.searchParams;
+    if (params.get("hand") === "left")
         return KEYBOARD_DEFAULTS[chosen_keyboard].right_key;
+    else
+        return KEYBOARD_DEFAULTS[chosen_keyboard].left_key;
 }
 
 function initExperiment(stimuli) {
 
+    let url = new URL(window.location.href);
+    redirection_params.current_url = url;
+    let params = new URLSearchParams(url.searchParams);
+    redirection_params.search_params = params;
+
+    if (params.get("second") == "ld") {
+        redirection_params.do_pn = true;
+    }
+    else {
+        redirection_params.do_pn = false;
+    }
+
     validateAllStimuli();
+
+    if (params.get("short") == "true") {
+        shorten_stimulus_lists(stimuli);
+    }
 
     console.log("The selected list is %s", stimuli.list_name);
     trial_procedure.timeline_variables = uil.randomization.randomShuffleConstraints(
@@ -239,6 +273,7 @@ function initExperiment(stimuli) {
     let list_name = stimuli.list_name;
     jsPsych.data.addProperties({
         subject: subject_id,
+        pp_id: params.get("pp_id"),
         list: list_name,
     });
 
