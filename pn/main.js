@@ -4,6 +4,13 @@
  * This file creates the picture naming task
  */
 
+// is init in initExperiment
+let redirection_params = {
+    current_url: null,
+    search_params: null,
+    do_ld: null
+};
+
 let jsPsych = initJsPsych(
     {
         exclusions: {
@@ -88,7 +95,6 @@ let if_cue = {
     timeline: [cue],
     conditional_function: function () {
         let c = jsPsych.timelineVariable('cue_pic', true);
-        console.log("c = " + c);
         if (typeof c ==="string" && c.length > 0) {
             cue.cue = c;
             return true;
@@ -201,6 +207,14 @@ let end_screen = {
     // trial_duration: DEBRIEF_MESSAGE_DURATION,
     on_load: function (){
         uil.saveData();
+        if (redirection_params.do_ld) {
+            let current_url = new URL (window.location.href);
+            let new_url = new URL("../ld", current_url);
+            for ([key, value] of current_url.searchParams.entries()) {
+                new_url.searchParams.set(key, value);
+            }
+            window.location.replace(new_url);
+        }
     },
     on_finish : function(data) {
         if (typeof data.rt === "number") {
@@ -233,20 +247,31 @@ let trial_procedure3 = {
     timeline_variables: null
 };
 
-function initExperiment(block1, block2, block3) {
+function initExperiment() {
 
     fixStimulusBlocks();
     preload.images = getImageStimuli();
 
-    trial_procedure1.timeline_variables = block1;
-    trial_procedure2.timeline_variables = block2;
-    trial_procedure3.timeline_variables = block3;
+    let url = new URL(window.location.href);
+    redirection_params.current_url = url;
+    let params = new URLSearchParams(url.searchParams);
+    redirection_params.search_params = params;
 
+    if (params.get("second") == "pn") {
+        redirection_params.do_ld = true;
+    }
+    else {
+        redirection_params.do_ld = false;
+    }
+    
     // Data added to the output of all trials.
-    let subject_id = jsPsych.randomization.randomID(8);
     jsPsych.data.addProperties({
-        subject: subject_id,
+        pp_id: params.get("pp_id"),
     });
+
+    trial_procedure1.timeline_variables = BLOCK_1;
+    trial_procedure2.timeline_variables = BLOCK_2;
+    trial_procedure3.timeline_variables = BLOCK_3;
 
     //////////////// timeline /////////////////////////////////
 
@@ -259,14 +284,8 @@ function initExperiment(block1, block2, block3) {
 
     timeline.push({type:jsPsychInitializeMicrophone}); // make recording with mic work.
 
-    // // Informed consent (consent.js)
-    // timeline.push(consent_procedure);
-
-    // // survey (survey.js)
-    // timeline.push(survey_procedure);
-
     // test/set audio level (sountest.js)
-    // timeline.push(maybe_test_audio);
+    timeline.push(maybe_test_audio);
 
     // task instruction (with button)
     // timeline.push(instruction_screen_practice);

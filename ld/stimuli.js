@@ -1,3 +1,4 @@
+"use strict";
 ////////////////
 // STIMULI
 ///////////////
@@ -17,7 +18,7 @@ const LISTS = ["list1"];
 //     "list2"
 // ];
 
-const PRACTICE_LIST = [
+let PRACTICE_LIST = [
     {
         id: 193, 
         item_type: PRACTICE, 
@@ -64,10 +65,9 @@ const PRACTICE_LIST = [
         visual_target: "lokeers",
         expected_answer: 0
     }
-	
 ];
 
-const LIST_1 = [
+let LIST_1 = [
     {
         id: 1, 
         item_type: COGNATE_IDENTICAL, 
@@ -1552,6 +1552,22 @@ function validateAllStimuli() {
             success = false;
     }
     return success;
+}
+
+function shorten_stimulus_lists(stimuli) {
+    let short_prac = [
+        PRACTICE_LIST[0],
+        PRACTICE_LIST[1],
+    ];
+    PRACTICE_LIST = short_prac;
+    
+    let short_list1 = [
+        stimuli.table[0],
+        stimuli.table[1],
+        stimuli.table[stimuli.table.length/2 + 0],
+        stimuli.table[stimuli.table.length/2 + 1]
+    ];
+    stimuli.table = short_list1;
 }
 
 /**

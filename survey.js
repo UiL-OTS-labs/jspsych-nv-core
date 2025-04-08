@@ -35,7 +35,7 @@ let survey_1 = {
     fields: {
         birth_year: {label: 'Year of birth'},
         birth_month: {label: 'Month of birth'},
-        native_language: {label: 'Native language', options: {ja: "Yes", nee: "No"}},
+        native_language: {label: 'Native language', options: {yes: "Yes", no: "No"}},
     },
 	ok: "Correct",
 	reviewPrompt: "Please check that the following information is correct:",
@@ -144,12 +144,15 @@ let survey_2 = {
     `,
     on_finish : function(data) {
         let response = data.response;
-	if (data['handedness'] == 'left') {
-	    participant_info.hand_pref = ParticipantInfo.LEFT;
-	}
-	else {
-	    participant_info.hand_pref = ParticipantInfo.RIGHT;
-	}
+        if (data['handedness'] == 'left') {
+            participant_info.hand_pref = ParticipantInfo.LEFT;
+            redirection_info.search_params.append("hand", "left");
+
+        }
+        else {
+            participant_info.hand_pref = ParticipantInfo.RIGHT;
+            redirection_info.search_params.append("hand", "right");
+        }
     }
 }
 
