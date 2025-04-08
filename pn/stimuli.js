@@ -65,9 +65,13 @@ function _fixImageNames() {
         );
     }
 
+    function fix_block2(block) {
+        block.forEach((t) => {t.pic = imgName(t.picture);});
+    }
+
     fix(PRACTICE);
     fix(BLOCK_1);
-    fix(BLOCK_2);
+    fix_block2(BLOCK_2);
     fix(BLOCK_3);
 }
 

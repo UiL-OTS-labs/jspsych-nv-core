@@ -95,7 +95,6 @@ let if_cue = {
     timeline: [cue],
     conditional_function: function () {
         let c = jsPsych.timelineVariable('cue_pic', true);
-        console.log("c = " + c);
         if (typeof c ==="string" && c.length > 0) {
             cue.cue = c;
             return true;
@@ -285,14 +284,8 @@ function initExperiment() {
 
     timeline.push({type:jsPsychInitializeMicrophone}); // make recording with mic work.
 
-    // // Informed consent (consent.js)
-    // timeline.push(consent_procedure);
-
-    // // survey (survey.js)
-    // timeline.push(survey_procedure);
-
     // test/set audio level (sountest.js)
-    // timeline.push(maybe_test_audio);
+    timeline.push(maybe_test_audio);
 
     // task instruction (with button)
     // timeline.push(instruction_screen_practice);
