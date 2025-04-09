@@ -1,3 +1,4 @@
+"use strict";
 /*
  * This file creates and starts the jsPsych timeline.
  *
@@ -23,11 +24,11 @@ let jsPsych = initJsPsych(
     }
 );
 
-let start_screen = {
+let start_screen_nl = {
     type: jsPsychHtmlButtonResponse,
     stimulus: function(){
         return "<div class='instruction' >" +
-               "<p>" + GENERIC_CHECK + "</p></div>";
+               "<p>" + PRE_PRACTICE_INSTRUCTION_NL + "</p></div>";
     },
     choices: [OK_BUTTON_TEXT],
     response_ends_trial: true,
@@ -37,6 +38,42 @@ let start_screen = {
         }
     }
 };
+
+let start_screen_en = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: function(){
+        return "<div class='instruction' >" +
+               "<p>" + PRE_PRACTICE_INSTRUCTION_EN + "</p></div>";
+    },
+    choices: [OK_BUTTON_TEXT],
+    response_ends_trial: true,
+    on_finish : function(data) {
+        if (typeof data.rt === "number") {
+            data.rt = Math.round(data.rt);
+        }
+    }
+};
+
+function create_instruction(text, continue_keys=["Enter"]) {
+
+    let stim =
+        `<div class="instruction">
+            ${text}
+        </div>`;
+
+    let inst = {
+        type : jsPsychHtmlKeyboardResponse,
+        choices: continue_keys,
+        response_ends_trial : true,
+        stimulus : stim,
+        on_finish: function (data) {
+            if (typeof(data.rt) === "number") {
+                data.rt = Math.round(data.rt);
+            }
+        }
+    }
+    return inst;
+}
 
 // optional instructions to be presented in the first block
 
@@ -226,11 +263,10 @@ let end_screen = {
 
 // (timeline) procedures //////////////////////////////////////////////////////////
 
-// let practice_procedure = {
-//     timeline: [...trial_timeline, present_feedback],
-//     timeline_variables: getPracticeItems().table,
-//     randomize_order: false,
-// };
+let practice_procedure = {
+    timeline: trial_timeline,
+    timeline_variables: PRACTICE
+};
 
 let trial_procedure1 = {
     timeline: trial_timeline,
@@ -276,36 +312,40 @@ function initExperiment() {
     //////////////// timeline /////////////////////////////////
 
     let timeline = [];
-
-    // it's best practice to have *mouse click* user I/O first
-    timeline.push(start_screen);
-
+    
     timeline.push(preload);
+
+    timeline.push(create_instruction(PRE_PRACTICE_INSTRUCTION_NL));
+    timeline.push(create_instruction(PRE_PRACTICE_INSTRUCTION_EN));
 
     timeline.push({type:jsPsychInitializeMicrophone}); // make recording with mic work.
 
     // test/set audio level (sountest.js)
     timeline.push(maybe_test_audio);
 
-    // task instruction (with button)
-    // timeline.push(instruction_screen_practice);
+    timeline.push(practice_procedure);
 
-    // timeline.push(practice_procedure);
-    // timeline.push(well_done_screen);
+    timeline.push(create_instruction(BLOCK1_INSTRUCTION_NL));
+    timeline.push(create_instruction(BLOCK1_INSTRUCTION_EN));
     
     timeline.push ({type: SoundRecorderStart}); 
     timeline.push(trial_procedure1);
     timeline.push ({type: SoundRecorderStop}); 
+    
+    timeline.push(create_instruction(BLOCK2_INSTRUCTION_NL));
+    timeline.push(create_instruction(BLOCK2_INSTRUCTION_EN));
 
     timeline.push ({type: SoundRecorderStart}); 
     timeline.push(trial_procedure2);
     timeline.push ({type: SoundRecorderStop}); 
+    
+    timeline.push(create_instruction(BLOCK3_INSTRUCTION_NL));
+    timeline.push(create_instruction(BLOCK3_INSTRUCTION_EN));
 
     timeline.push ({type: SoundRecorderStart}); 
     timeline.push(trial_procedure3);
     timeline.push ({type: SoundRecorderStop}); 
 
-//     timeline.push(feedback_screen);
     timeline.push(end_screen);
 
     // Start jsPsych when running on a Desktop or Laptop style pc.

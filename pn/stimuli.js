@@ -78,9 +78,19 @@ function _fixImageNames() {
 function _setInstructionsBlock1() {
     // Don't put any other instructions here, because they
     // will be recored.
-    BLOCK_1[BLOCK_1.length / 4 * 1].instruction = INSTRUCTION_QUATER1;
-    BLOCK_1[BLOCK_1.length / 4 * 2].instruction = INSTRUCTION_QUATER2;
-    BLOCK_1[BLOCK_1.length / 4 * 3].instruction = INSTRUCTION_QUATER3;
+    let cat = (nl, en) => {
+        return `
+            <div class="stimulus">
+                <p>${nl}</p>
+                <p>${en}</p>
+            </div>`;
+    }
+    BLOCK_1[BLOCK_1.length / 4 * 1].instruction =
+        cat(INSTRUCTION_QUATER_NL, INSTRUCTION_QUATER_EN)
+    BLOCK_1[BLOCK_1.length / 4 * 2].instruction =
+        cat(INSTRUCTION_QUATER_NL, INSTRUCTION_QUATER_EN)
+    BLOCK_1[BLOCK_1.length / 4 * 3].instruction =
+        cat(INSTRUCTION_QUATER_NL, INSTRUCTION_QUATER_EN)
 }
 
 /**
