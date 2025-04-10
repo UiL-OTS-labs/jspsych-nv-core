@@ -16,24 +16,6 @@ let redirection_info = {
     search_params: null
 };
 
-let start_screen = {
-    type: jsPsychHtmlButtonResponse,
-    stimulus: function(){
-        return "<div class='instruction' >"                            +
-               "<p>"                                                   +
-                    `pn = ${redirection_info.pn_experiment}<br>`       +
-                    `ld = ${redirection_info.ld_experiment}`           +
-                "</p></div>";
-    },
-    choices: [OK_BUTTON_TEXT],
-    response_ends_trial: true,
-    on_finish : function(data) {
-        if (typeof data.rt === "number") {
-            data.rt = Math.round(data.rt);
-        }
-    }
-};
-
 /*
  * Uploads the data and forwards to the second experiment
  */
@@ -79,9 +61,6 @@ function initExperiment(group) {
 
     let timeline = [];
 
-    // it's best practice to have *mouse click* user I/O first
-    timeline.push(start_screen);
-
     timeline.push(consent_procedure);
     
     // survey (survey.js)
@@ -110,7 +89,7 @@ function main() {
         throw new Error("No participant id present");
     }
 
-    // // Make sure you've updated your key in globals.js
+    // Make sure you've updated your key in globals.js
     uil.setAccessKey(ACCESS_KEY);
     uil.stopIfExperimentClosed();
 
