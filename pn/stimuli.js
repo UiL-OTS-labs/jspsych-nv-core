@@ -393,13 +393,17 @@ function getImageStimuli() {
             image_stimuli.push(tparams.cue_pic_cue);
         if (tparams.cue_pic_pic)
             image_stimuli.push(tparams.cue_pic_pic);
+        if (tparams.pic)
+            image_stimuli.push(tparams.pic);
     }
 
     BLOCK_1.forEach(extract_img_stimuli);
     BLOCK_2.forEach(extract_img_stimuli);
     BLOCK_3.forEach(extract_img_stimuli);
 
-    return Array.from(new Set(image_stimuli));
+    let set = new Set(image_stimuli);
+
+    return Array.from(set);
 }
 
 /**
