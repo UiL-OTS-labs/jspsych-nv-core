@@ -202,17 +202,13 @@ let if_solo_pic = {
 let preload = {
     type : jsPsychPreload,
     message : PRELOAD_MSG,
-    on_start: function () {
-        console.log(preload.images);
-        console.log(preload.audio);
-    },
-    images: null, //[...getImageStimuli()], needs fixing first
+    images: null, // is set in initExperiment()
     audio: [...getAudioStimuli()],
 };
 
 let well_done_screen = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: function(){
+    stimulus: function() {
         return "<div class='instruction' >" +
             '<p>' + PRE_TEST_INSTRUCTION + '</p></div>';
     },
@@ -305,6 +301,8 @@ function initExperiment() {
         pp_id: params.get("pp_id"),
     });
 
+    practice_procedure.timeline_variables = PRACTICE;
+
     trial_procedure1.timeline_variables = BLOCK_1;
     trial_procedure2.timeline_variables = BLOCK_2;
     trial_procedure3.timeline_variables = BLOCK_3;
@@ -320,7 +318,7 @@ function initExperiment() {
 
     timeline.push({type:jsPsychInitializeMicrophone}); // make recording with mic work.
 
-    // test/set audio level (sountest.js)
+    // test/set audio level (soundtest.js)
     timeline.push(maybe_test_audio);
 
     timeline.push(practice_procedure);
@@ -358,15 +356,20 @@ function main() {
     // Make sure you've updated your key in globals.js
     uil.setAccessKey(ACCESS_KEY);
     uil.stopIfExperimentClosed();
+     
+    // Option 2: server side balancing:
+    if (uil.isOnline()) {
+        uil.session.start(ACCESS_KEY, (group_name) => {
+            setupStimulusBlocks(group_name.toLowerCase());
+            initExperiment(BLOCK_1, BLOCK_2, BLOCK_3);
+        });
+    }
+    else {
+        setupStimulusBlocks(
+            ["dutch", "english"][Math.floor(Math.random()*2)]
+        );
+        initExperiment(BLOCK_1, BLOCK_2, BLOCK_3);
+    }
 
-    // Option 1: client side balancing:
-    // let stimuli = pickRandomList();
-    setupStimulusBlocks();
-    initExperiment(BLOCK_1, BLOCK_2, BLOCK_3);
 
-     // Option 2: server side balancing:
-     // uil.session.start(ACCESS_KEY, (group_name) => {
-     //     let stimuli = findList(group_name);
-     //     initExperiment(stimuli);
-     // });
 }
