@@ -89,6 +89,9 @@ function main() {
         throw new Error("No participant id present");
     }
 
+    // Reject mobile devices
+    uil.browser.rejectMobileOrTablet();
+
     // Make sure you've updated your key in globals.js
     uil.setAccessKey(ACCESS_KEY);
     uil.stopIfExperimentClosed();
