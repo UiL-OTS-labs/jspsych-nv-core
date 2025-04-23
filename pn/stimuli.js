@@ -347,17 +347,18 @@ function setupStimulusBlocks(first="dutch") {
     first = first.toLowerCase();
 
     if (first === "english") {
-        BLOCK_1 = block1_test2; // see block1.js
-        PRACTICE = block1_prac2; // block1.js
-        BLOCK_3 = block3_test2; // see block3.js
+        PRACTICE = practice2;
+        BLOCK_1 = block1_list2; 
+        BLOCK_2 = block2_list2;
+        BLOCK_3 = block3_list2;
     }
     else {
-        BLOCK_1 = block1_test1; // see block1.js
-        PRACTICE = block1_prac1;// block2.js
-        BLOCK_3 = block3_test1; // see block3.js
+        PRACTICE = practice1;
+        BLOCK_1 = block1_list1;
+        BLOCK_2 = block2_list1
+        BLOCK_3 = block3_list1;
     }
 
-    BLOCK_2 = block2_test; // see block2.js
 }
 
 
