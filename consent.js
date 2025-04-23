@@ -1,5 +1,5 @@
 
-// stores wheter or not consent is given.
+// stores whether or not consent is given.
 let g_consent_given = null;
 
 /* CSS style for the consent form */
@@ -126,7 +126,7 @@ const CONSENT_HTML_STYLE_UU = `<style>
         </style>
         `
 const CONSENT_HTML = `
-     <p><b>Welcome to the online experiment "Word Recognition and Languege Switching in a Multilingual Context"</b></p>
+     <p><b>Welcome to the online experiment "Word Recognition and Language Switching in a Multilingual Context"</b></p>
 	<div style="text-align: left">
 	<p>Dear participant,</p>
 	<p>Thank you for your interest in participating in this online experiment. The goal of this study is to gain new insights into how multilingual speakers recognize Dutch words and switch between Dutch and English.</p> 
