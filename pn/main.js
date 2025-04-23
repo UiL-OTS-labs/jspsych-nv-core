@@ -159,6 +159,11 @@ let cue_pic = {
             </div>`;
         return prompt;
     },
+    on_finish: function (data) {
+        data.trial_id = jsPsych.timelineVariable('trial_id');
+        data.trial_item = jsPsych.timelineVariable('trial_item');
+        data.expected_answer = jsPsych.timelineVariable('expected_answer');
+    },
     trial_duration: TRIAL_DUR,
     post_trial_gap: ITI_DUR,
 };
@@ -186,6 +191,11 @@ let solo_pic = {
                 <img src="${pic}" alt="oops"/>
             </div>`;
         return prompt;
+    },
+    on_finish: function (data) {
+        data.trial_id = jsPsych.timelineVariable('trial_id');
+        data.trial_item = jsPsych.timelineVariable('trial_item');
+        data.expected_answer = jsPsych.timelineVariable('expected_answer');
     },
     trial_duration: TRIAL_DUR,
     post_trial_gap: ITI_DUR,
