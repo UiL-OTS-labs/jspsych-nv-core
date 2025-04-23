@@ -38,17 +38,17 @@ experiments must be created and one additional for the informed consent.
 I would suggest to create three experiments on the dataserver; something like
 the following:
 
-1. **core_ic**, for the informed consent. As its aranges the counterbalancing
+1. **core_ic**, for the informed consent. As its arranges the counterbalancing
    Two groups must be added:
    1. **ld** For the participant that do the ld first.
    2. **pn** For the participant that do the pn first.
    Make sure to put the ACCESS_KEY to be collected from the data server
    in /globals.js
 2. **core_ld**, for the lexical descision experiment. I don't know whether
-   grouping is used. If so add them as is consisten with the experiment.
+   grouping is used. If so add them as is consistent with the experiment.
    Make sure to update the ACCESS_KEY in ld/globals.js
 3. **core_pn**, for the picturenaming/language switching task.
    Two groups should be added:
-   1. **en** to start with english in the first block
-   2. **nl** to start with dutch
+   1. **english** to start with english in the first block
+   2. **dutch** to start with dutch
    Make sure to update the ACCESS_KEY in the pn/globals.js
