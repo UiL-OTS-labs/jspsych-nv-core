@@ -163,6 +163,15 @@ let cue_pic = {
         data.trial_id = jsPsych.timelineVariable('trial_id');
         data.trial_item = jsPsych.timelineVariable('trial_item');
         data.expected_answer = jsPsych.timelineVariable('expected_answer');
+        data.picture = jsPsych.timelineVariable('picture');
+        data.item_id = jsPsych.timelineVariable('item_id');
+        data.item_type = jsPsych.timelineVariable('item_type');
+        data.condition = jsPsych.timelineVariable('condition');
+        data.block = jsPsych.timelineVariable('block');
+        data.trial_type = jsPsych.timelineVariable('trial_type');
+        data.cue = jsPsych.timelineVariable('cue');
+        data.nl_name = jsPsych.timelineVariable('nl_name');
+        data.en_name = jsPsych.timelineVariable('en_name');
     },
     trial_duration: TRIAL_DUR,
     post_trial_gap: ITI_DUR,
@@ -196,6 +205,15 @@ let solo_pic = {
         data.trial_id = jsPsych.timelineVariable('trial_id');
         data.trial_item = jsPsych.timelineVariable('trial_item');
         data.expected_answer = jsPsych.timelineVariable('expected_answer');
+        data.picture = jsPsych.timelineVariable('picture');
+        data.item_id = jsPsych.timelineVariable('item_id');
+        data.item_type = jsPsych.timelineVariable('item_type');
+        data.condition = jsPsych.timelineVariable('condition');
+        data.block = jsPsych.timelineVariable('block');
+        data.trial_type = jsPsych.timelineVariable('trial_type');
+        data.cue = jsPsych.timelineVariable('cue');
+        data.nl_name = jsPsych.timelineVariable('nl_name');
+        data.en_name = jsPsych.timelineVariable('en_name');
     },
     trial_duration: TRIAL_DUR,
     post_trial_gap: ITI_DUR,
