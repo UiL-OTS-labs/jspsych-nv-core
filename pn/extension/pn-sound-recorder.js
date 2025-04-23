@@ -71,8 +71,25 @@ class PnSoundRecorderExtension {
             (resolve, reject) => {
             this.resolveStart = resolve;
             this.recorder = this.jsPsych.pluginAPI.getMicrophoneRecorder();
-            this._setupRecordingCallbacks(resolve, reject);
-            this.recorder.start();
+            let stream = this.recorder.stream;
+            let promises = [];
+            for (let track of stream.getAudioTracks()) {
+                // add echoCancelation to the constrains the ua should do its
+                // best to follow the constraint but do not crash...
+                let constraints = track.getConstraints();
+                constraints["echoCancellation"] = false;
+                promises.push(track.applyConstraints(constraints));
+            }
+            Promise.all(promises)
+                .then(() => {
+                    this._setupRecordingCallbacks(resolve, reject);
+                    this.recorder.start();
+                })
+                .catch(() => {
+                    console.warning("Oops unable to constrain audio");
+                    this._setupRecordingCallbacks(resolve, reject);
+                    this.recorder.start();
+                })
         });
         return promise;
     }
