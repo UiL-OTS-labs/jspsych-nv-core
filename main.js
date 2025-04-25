@@ -26,7 +26,7 @@ let end_screen = {
     // trial_duration: DEBRIEF_MESSAGE_DURATION,
     on_load: function (){
 
-        uil.saveData();
+        uil.saveJson(jsPsych.data.get().json(), ACCESS_KEY);
 
         let relpath = "./" + redirection_info.second
         let url = new URL(relpath, window.location.href);
