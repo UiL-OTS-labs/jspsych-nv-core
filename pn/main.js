@@ -271,7 +271,7 @@ let end_screen = {
         if (redirection_params.do_ld) {
             let current_url = new URL (window.location.href);
             let new_url = new URL("../ld", current_url);
-            for ([key, value] of current_url.searchParams.entries()) {
+            for (let [key, value] of current_url.searchParams.entries()) {
                 new_url.searchParams.set(key, value);
             }
             window.location.replace(new_url);
