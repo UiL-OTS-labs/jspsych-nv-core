@@ -35,7 +35,13 @@ let survey_1 = {
     fields: {
         birth_year: {label: 'Year of birth'},
         birth_month: {label: 'Month of birth'},
-        native_language: {label: 'Native language', options: {yes: "Yes", no: "No"}},
+        native_language: {
+            label: 'German or English as native language',
+            options: {
+                yes: "Yes",
+                no: "No"
+            }
+        },
     },
 	ok: "Correct",
 	reviewPrompt: "Please check that the following information is correct:",
@@ -65,52 +71,67 @@ let survey_1 = {
     </div>
     `,
     exclusion: function(data) {
-	// return true when participant should be excluded
+        // return true when participant should be excluded
 
         let currentYear = (new Date()).getFullYear();
         let age = currentYear - parseInt(data.birth_year, 10);
 
         // reject participants younger than 18
-	if (age < 18) {
-	    return true;
-	}
+        if (age < 18) {
+            return true;
+        }
 
         // reject participants older than 80
-	if (age > 69) {
-	    return true;
-	}
+        if (age > 69) {
+            return true;
+        }
 
-	if (data.native_language == 'nee') {
-	    return true;
-	}
-	
-	if (data.education_level == 'nee') {
-	    return true;
-	}
-	
-	// accept participant otherwise
-	return false
+        if (data.native_language == 'yes') {
+            return true;
+        }
+
+        // accept participant otherwise
+        return false;
     }
 }
 
 let survey_2 = {
     type: IlsSurveyPlugin,
     fields: {
-		dyslexia: {label: 'Dyslexia', options: {yes: "Yes", no: "No"}},
-		handedness: {label: 'Left- or right-handed', options: {right: "Right-handed", left: "Left-handed"}},
-		sex: {label: 'Gender', options: {male: "Man", female: "Woman", other: "Other", unspecified: "I would rather not say"}},
+		dyslexia: {
+            label: 'Dyslexia',
+            options: {
+                yes: "Yes",
+                no: "No"
+            }
+        },
+		handedness: {
+            label: 'Left- or right-handed',
+            options: {
+                right: "Right-handed",
+                left: "Left-handed"}
+        },
+		sex: {
+            label: 'Gender',
+            options: {
+                male: "male",
+                female: "female",
+                other: "Other",
+                unspecified: "I would rather not say"
+            }
+        },
     },
 	ok: "Correct",
 	reviewPrompt: "Please check that the following information is correct:",
 	cancel: "Change",
 	exclusionPrompt: "Thank you for your interest in the experiment. Unfortunately, you do not meet the criteria and cannot participate.",
     exclusion: function(data) {
-	// return true when participant should be excluded
-	if (data.dyslexia == 'yes') {
-	    return true;
-	}
-	// accept participant otherwise
-	return false
+        // return true when participant should be excluded
+        if (data.dyslexia == 'yes') {
+            return true;
+        }
+        // accept participant otherwise
+        return false
     },
     html: `
     <div style="text-align: left">
@@ -125,8 +146,8 @@ let survey_2 = {
         <p>What is your gender?
         </p>
 	<div>
-	    <label><input type="radio" name="sex" value="male" required/>Man</label>
-	    <label><input type="radio" name="sex" value="female" required/>Woman</label>
+	    <label><input type="radio" name="sex" value="male" required/>Male</label>
+	    <label><input type="radio" name="sex" value="female" required/>Female</label>
 	    <label><input type="radio" name="sex" value="other" required/>Other</label>
 	    <label><input type="radio" name="sex" value="unspecified" required/>I would rather not say</label>
 	</div>
