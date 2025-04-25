@@ -168,7 +168,7 @@ let auditory_target = {
  * This will present an visual target word. The participant should
  * decide whether it is a word or not.
  *
- * Note: At would be at least weird to have both an auditory and a visual target.
+ * Note: It would be weird to have both an auditory and a visual target.
  */
 let visual_target = {
     type: jsPsychHtmlKeyboardResponse,
@@ -178,6 +178,7 @@ let visual_target = {
             "</p>";
     },
     choices: createChoicesArray,
+    stimulus_duration: STIMULUS_DUR,
     trial_duration: RESPONSE_TIMEOUT_DURATION,
     response_ends_trial: true,
     post_trial_gap: DEFAULT_ITI,
