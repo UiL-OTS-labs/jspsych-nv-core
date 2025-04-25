@@ -7733,7 +7733,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_383.png",
 		"trial_id": "7",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -7751,7 +7751,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_383.png",
 		"trial_id": "8",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -7769,7 +7769,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_400.png",
 		"trial_id": "15",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -7787,7 +7787,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_400.png",
 		"trial_id": "16",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -7805,7 +7805,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_707.png",
 		"trial_id": "23",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -7823,7 +7823,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_707.png",
 		"trial_id": "24",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -7841,7 +7841,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_454.png",
 		"trial_id": "31",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -7859,7 +7859,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_454.png",
 		"trial_id": "32",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -7877,7 +7877,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_140.png",
 		"trial_id": "39",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -7895,7 +7895,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_140.png",
 		"trial_id": "40",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -7913,7 +7913,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_612.png",
 		"trial_id": "47",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -7931,7 +7931,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_612.png",
 		"trial_id": "48",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -7949,7 +7949,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_487.png",
 		"trial_id": "55",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -7967,7 +7967,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_487.png",
 		"trial_id": "56",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -7985,7 +7985,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_23.png",
 		"trial_id": "63",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8003,7 +8003,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_23.png",
 		"trial_id": "64",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8021,7 +8021,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_165.png",
 		"trial_id": "71",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8039,7 +8039,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_165.png",
 		"trial_id": "72",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8057,7 +8057,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_517.png",
 		"trial_id": "79",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8075,7 +8075,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_517.png",
 		"trial_id": "80",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8093,7 +8093,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_664.png",
 		"trial_id": "87",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8111,7 +8111,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_664.png",
 		"trial_id": "88",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8129,7 +8129,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_340.png",
 		"trial_id": "95",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8147,7 +8147,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_340.png",
 		"trial_id": "96",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8165,7 +8165,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_122.png",
 		"trial_id": "103",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8183,7 +8183,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_122.png",
 		"trial_id": "104",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8201,7 +8201,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_284.png",
 		"trial_id": "111",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8219,7 +8219,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_284.png",
 		"trial_id": "112",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8237,7 +8237,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_78.png",
 		"trial_id": "119",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8255,7 +8255,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_78.png",
 		"trial_id": "120",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8273,7 +8273,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_360.png",
 		"trial_id": "127",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8291,7 +8291,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_360.png",
 		"trial_id": "128",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8309,7 +8309,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_465.png",
 		"trial_id": "135",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8327,7 +8327,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_465.png",
 		"trial_id": "136",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8345,7 +8345,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_343.png",
 		"trial_id": "143",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8363,7 +8363,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_343.png",
 		"trial_id": "144",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8381,7 +8381,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_599.png",
 		"trial_id": "151",
 		"trial_item": "1",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8399,7 +8399,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_599.png",
 		"trial_id": "152",
 		"trial_item": "2",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8417,7 +8417,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_64.png",
 		"trial_id": "159",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8435,7 +8435,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_64.png",
 		"trial_id": "160",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8453,7 +8453,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_533.png",
 		"trial_id": "167",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8471,7 +8471,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_533.png",
 		"trial_id": "168",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8489,7 +8489,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_66.png",
 		"trial_id": "175",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8507,7 +8507,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_66.png",
 		"trial_id": "176",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8525,7 +8525,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_174.png",
 		"trial_id": "183",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8543,7 +8543,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_174.png",
 		"trial_id": "184",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8561,7 +8561,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_590.png",
 		"trial_id": "191",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8579,7 +8579,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_590.png",
 		"trial_id": "192",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8597,7 +8597,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_152.png",
 		"trial_id": "199",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8615,7 +8615,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_152.png",
 		"trial_id": "200",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8633,7 +8633,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_8.png",
 		"trial_id": "207",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8651,7 +8651,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_8.png",
 		"trial_id": "208",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8669,7 +8669,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_270.png",
 		"trial_id": "215",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8687,7 +8687,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_270.png",
 		"trial_id": "216",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8705,7 +8705,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_117.png",
 		"trial_id": "223",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8723,7 +8723,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_117.png",
 		"trial_id": "224",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8741,7 +8741,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_564.png",
 		"trial_id": "231",
 		"trial_item": "7",
-		"trial_type": "same"
+		"trial_type": "switch"
 	},
 	{
 		"block": "3",
@@ -8759,7 +8759,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_564.png",
 		"trial_id": "232",
 		"trial_item": "8",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8777,7 +8777,7 @@ block3_list2 = [
 		"picture_png": "PICTURE_285.png",
 		"trial_id": "239",
 		"trial_item": "7",
-		"trial_type": "switch"
+		"trial_type": "same"
 	},
 	{
 		"block": "3",
@@ -8795,6 +8795,6 @@ block3_list2 = [
 		"picture_png": "PICTURE_285.png",
 		"trial_id": "240",
 		"trial_item": "8",
-		"trial_type": "same"
+		"trial_type": "switch"
 	}
 ]
