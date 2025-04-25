@@ -267,7 +267,7 @@ let end_screen = {
     choices: [],
     // trial_duration: DEBRIEF_MESSAGE_DURATION,
     on_load: function (){
-        uil.saveData();
+        uil.saveJson(jsPsych.data.get().json(), ACCESS_KEY);
         if (redirection_params.do_ld) {
             let current_url = new URL (window.location.href);
             let new_url = new URL("../ld", current_url);
