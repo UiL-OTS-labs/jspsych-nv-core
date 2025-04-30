@@ -17,6 +17,20 @@ let PRACTICE = undefined;
 let BLOCK_1 = undefined;
 let BLOCK_2 = undefined;
 let BLOCK_3 = undefined
+    
+function print_stimulus(stim) {
+    let cue = stim.cue ? `, cue = ${stim.cue}` : "";
+    console.log(`pic = ${stim.picture}, trial_type = ${stim.trial_type}${cue}`);
+}
+
+/**
+ * prints the stimuli of a block
+ *
+ * @param {object[]} block A list of stimuli
+ */
+function print_stimuli(block) {
+    block.forEach(print_stimulus);
+}
 
 
 /**
@@ -105,7 +119,7 @@ function violates_constraints(block, n) {
 
     for (let i = n; i < block.length; i++) {
         let stim = block[i].picture;
-        let problem = block.slice(i - n, i).find((key) => key.picture == stim);
+        let problem = block.slice(Math.max(0, i - n), i).find((key) => key.picture == stim);
         if (problem) {
             return i;
         }
@@ -292,6 +306,7 @@ function _shuffleBlock3() {
         }
     } while(violation >= 0)
 
+
     return block;
 }
 
@@ -299,7 +314,7 @@ function fixStimulusBlocks() {
     _fixImageNames();
     _shuffleBlock1();
     _shuffleBlock2();
-    _shuffleBlock3();
+    BLOCK_3 = _shuffleBlock3();
     _setInstructionsBlock1();
     
     let url = new URL(window.location.href);
@@ -344,8 +359,6 @@ function setupStimulusBlocks(first="dutch") {
     first = first.trim() 
     first = first.toLocaleLowerCase()
 
-    first = first.toLowerCase();
-
     if (first === "english") {
         PRACTICE = practice2;
         BLOCK_1 = block1_list2; 
@@ -358,7 +371,6 @@ function setupStimulusBlocks(first="dutch") {
         BLOCK_2 = block2_list1
         BLOCK_3 = block3_list1;
     }
-
 }
 
 
