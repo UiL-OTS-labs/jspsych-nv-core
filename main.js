@@ -28,13 +28,17 @@ let end_screen = {
 
         uil.saveJson(jsPsych.data.get().json(), ACCESS_KEY);
 
-        let relpath = "./" + redirection_info.second
-        let url = new URL(relpath, window.location.href);
-        for (const [key, value] of redirection_info.search_params.entries()) {
-            url.searchParams.set(key, value)
-        }
+        window.setTimeout(() => {
+                let relpath = "./" + redirection_info.second
+                let url = new URL(relpath, window.location.href);
+                for (const [key, value] of redirection_info.search_params.entries()) {
+                    url.searchParams.set(key, value)
+                }
 
-        window.location.replace(url);
+                window.location.replace(url);
+            },
+            5000
+        )
     },
 };
 

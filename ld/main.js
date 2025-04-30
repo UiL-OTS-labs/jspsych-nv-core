@@ -110,11 +110,15 @@ let feedback_screen = {
     on_load: function() {
         uil.saveJson(jsPsych.data.get().json(), ACCESS_KEY);
         if (redirection_params.do_pn) {
-            let new_url = new URL("../pn", redirection_params.current_url)
-            for ([key, value] of redirection_params.search_params) {
-                new_url.searchParams.set(key, value);
-            }
-            window.location.replace(new_url);
+            setTimeout(() => {
+                    let new_url = new URL("../pn", redirection_params.current_url)
+                    for ([key, value] of redirection_params.search_params) {
+                        new_url.searchParams.set(key, value);
+                    }
+                    window.location.replace(new_url);
+                },
+                5000
+            );
         }
     },
     on_finish: function(data) {

@@ -58,10 +58,10 @@ const PRE_TEST_INSTRUCTION =
     ;
 
 const DEBRIEF_MESSAGE = `
-    <h1>End of the experiment</h1>
+    <h1>End of this part of the experiment</h1>
     <br>
     <br>
-    <h2>Thank you for your participation!</h2>
+    <h2>Please wait while you are being transferred to the next part.</h2>
     `;
 
 

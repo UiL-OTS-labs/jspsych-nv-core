@@ -266,7 +266,7 @@ let end_screen = {
     stimulus: DEBRIEF_MESSAGE,
     choices: [],
     // trial_duration: DEBRIEF_MESSAGE_DURATION,
-    on_load: function (){
+    on_load: function () {
         uil.saveJson(jsPsych.data.get().json(), ACCESS_KEY);
         if (redirection_params.do_ld) {
             let current_url = new URL (window.location.href);

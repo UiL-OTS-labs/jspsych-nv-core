@@ -1,6 +1,6 @@
 
 // ACCESS_KEY needs to be used for server setup (data store)
-const ACCESS_KEY = 'dc128af7-0dcd-4bfc-8412-6f24034d7355'; 
+const ACCESS_KEY = '096d78dc-8f80-47de-a986-17dcd61acd82'; 
 
 // default value for pseudorandomisation restrictions
 const MAX_SUCCEEDING_ITEMS_OF_TYPE = 2;

@@ -1,6 +1,6 @@
 
 // ACCESS_KEY needs to be used for server setup (data store)
-const ACCESS_KEY = '00000000-0000-0000-0000-000000000000'; 
+const ACCESS_KEY = 'ecc50959-9e1b-44f4-a925-6425fedb51b8'; 
 
 // Default behavior of (sub) trial phases. times are in ms.
 
