@@ -102,33 +102,28 @@ let well_done_screen = {
 };
 
 let feedback_screen = {
-    type: jsPsychSurveyText,
-    preamble: FEEDBACK_PREAMBLE,
-    questions: [
-        {prompt: FEEDBACK_PROMPT, rows: 5},
-    ],
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: "<div class=stimulus>Please wait while we wrap up " +
+              "this part of the experiment.</H1></div>",
     on_load: function() {
-        uil.saveJson(jsPsych.data.get().json(), ACCESS_KEY);
-        if (redirection_params.do_pn) {
-            setTimeout(() => {
-                    let new_url = new URL("../pn", redirection_params.current_url)
-                    for ([key, value] of redirection_params.search_params) {
-                        new_url.searchParams.set(key, value);
-                    }
-                    window.location.replace(new_url);
-                },
-                5000
-            );
+        function redirectOrContinue() {
+            if (redirection_params.do_pn) {
+                let new_url = new URL("../pn", redirection_params.current_url)
+                for ([key, value] of redirection_params.search_params) {
+                    new_url.searchParams.set(key, value);
+                }
+                window.location.replace(new_url);
+            }
+            else {
+                jsPsych.finishTrial();
+            }
         }
+        uil.saveData(jsPsych.data.get().json(), ACCESS_KEY)
+            .then(redirectOrContinue);
     },
-    on_finish: function(data) {
-        let payload = {
-            feedback: data.response,
-            ...jsPsych.data.dataProperties // adds subject id and list info
-        }
-        uil.saveJson(JSON.stringify(payload), ACCESS_KEY);
-    }
 };
+
+
 
 let end_screen = {
     type: jsPsychHtmlButtonResponse,

@@ -24,21 +24,20 @@ let end_screen = {
     stimulus: DEBRIEF_MESSAGE,
     choices: [],
     // trial_duration: DEBRIEF_MESSAGE_DURATION,
-    on_load: function (){
+    on_load: function () {
 
-        uil.saveJson(jsPsych.data.get().json(), ACCESS_KEY);
+        function goOn() {
+            let relpath = "./" + redirection_info.second
+            let url = new URL(relpath, window.location.href);
+            for (const [key, value] of redirection_info.search_params.entries()) {
+                url.searchParams.set(key, value)
+            }
 
-        window.setTimeout(() => {
-                let relpath = "./" + redirection_info.second
-                let url = new URL(relpath, window.location.href);
-                for (const [key, value] of redirection_info.search_params.entries()) {
-                    url.searchParams.set(key, value)
-                }
+            window.location.replace(url);
+        }
 
-                window.location.replace(url);
-            },
-            5000
-        )
+        uil.saveJson(jsPsych.data.get().json(), ACCESS_KEY)
+            .then(goOn);
     },
 };
 
