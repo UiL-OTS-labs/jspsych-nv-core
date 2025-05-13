@@ -78,6 +78,7 @@ class PnSoundRecorderExtension {
                 // best to follow the constraint but do not crash...
                 let constraints = track.getConstraints();
                 constraints["echoCancellation"] = false;
+                constraints["noiseSuppression"] = false;
                 promises.push(track.applyConstraints(constraints));
             }
             Promise.all(promises)
